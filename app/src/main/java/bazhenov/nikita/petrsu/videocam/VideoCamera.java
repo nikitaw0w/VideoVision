@@ -1,21 +1,36 @@
 package bazhenov.nikita.petrsu.videocam;
 
-/**
- * @author Kovalchuk Denis
- * @version 1.0
- */
+import java.util.UUID;
 
 public class VideoCamera {
+    private UUID id;
     private String name;
-    private String id;
+    private String idCam;
     private String user;
     private String password;
 
-    public VideoCamera(String name, String id, String user, String password) {
-        this.name = name;
+    public VideoCamera() {
+        this(UUID.randomUUID());
+    }
+
+    public VideoCamera(UUID id) {
         this.id = id;
+    }
+
+    public VideoCamera(UUID id, String name, String idCam, String user, String password) {
+        this.id = id;
+        this.name = name;
+        this.idCam = idCam;
         this.user = user;
         this.password = password;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -26,12 +41,12 @@ public class VideoCamera {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getIdCam() {
+        return idCam;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdCam(String id) {
+        this.idCam = id;
     }
 
     public String getUser() {
@@ -46,7 +61,7 @@ public class VideoCamera {
         return password;
     }
 
-    public void setPasswrorld(String password) {
+    public void setPasswrord(String password) {
         this.password = password;
     }
 }

@@ -11,25 +11,47 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
+
+import bazhenov.nikita.petrsu.videocam.VideoCamLab;
+import bazhenov.nikita.petrsu.videocam.VideoCamera;
 
 public class CamersActivity extends AppCompatActivity {
     private RecyclerView camersRecyclerView;
+    private MyAdapter adapter;
+
+    private VideoCamLab videoCamLab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camers);
 
-        String[] cameraNames = {"Home", "PetrSU", "London", "Italy", "MyRoom", "Garage", "Bedroom",
-                                "Cabinet"};
+        videoCamLab = VideoCamLab.getInstance(getApplicationContext());
 
-        RecyclerView.Adapter adapter = new MyAdapter(cameraNames);
+        adapter = new MyAdapter(videoCamLab.getCameras());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         camersRecyclerView = (RecyclerView) findViewById(R.id.camersRecyclerView);
         camersRecyclerView.setLayoutManager(layoutManager);
         camersRecyclerView.setAdapter(adapter);
+    }
+
+    public void updateUI() {
+        List<VideoCamera> camers  = videoCamLab.getCameras();
+        if (adapter != null) {
+            adapter.setCamers(camers);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
     }
 
     @Override
@@ -53,18 +75,35 @@ public class CamersActivity extends AppCompatActivity {
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private String[] mDataset;
+        private List<VideoCamera> camers;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView mTextView;
+            public TextView name;
+            public TextView id;
+            public ImageView edit;
+
             public ViewHolder(View v) {
                 super(v);
-                mTextView = (TextView) v.findViewById(R.id.camera_name);
+                name = (TextView) v.findViewById(R.id.camera_name);
+                id = (TextView) v.findViewById(R.id.camera_id);
+                edit = (ImageView) v.findViewById(R.id.edit_camera_button);
+                edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getBaseContext(), EditCameraActivity.class);
+                        intent.putExtra(EditCameraActivity.EXTRA_ID, id.getText().toString());
+                        startActivity(intent);
+                    }
+                });
             }
         }
 
-        public MyAdapter(String[] myDataset) {
-            mDataset = myDataset;
+        public MyAdapter(List<VideoCamera> camers) {
+            this.camers = camers;
+        }
+
+        public void setCamers(List<VideoCamera> camers) {
+            this.camers = camers;
         }
 
         @Override
@@ -76,13 +115,24 @@ public class CamersActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.mTextView.setText(mDataset[position]);
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            holder.name.setText(camers.get(position).getName());
+            holder.id.setText(camers.get(position).getIdCam());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: Добавить переход на активити с трансляцией.
+                    //
+                    // Context context = v.getContext();
+                    // Intent intent = NameActivity.newIntent(context, holder.getAdapterPosition());
+                    // context.startActivity(intent);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return mDataset.length;
+            return camers.size();
         }
     }
 }

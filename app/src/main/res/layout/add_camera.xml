@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Name"/>
             <EditText
+                android:id="@+id/camera_name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Id"/>
             <EditText
+                android:id="@+id/camera_id_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -51,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/User"/>
             <EditText
+                android:id="@+id/camera_user_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -63,12 +66,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Password"/>
             <EditText
-                android:id="@+id/password_edit_text"
+                android:id="@+id/camera_password_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
     </GridLayout>
 
     <Button
+        android:id="@+id/add_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Add"

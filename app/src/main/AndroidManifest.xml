@@ -8,8 +8,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="bazhenov.nikita.petrsu.AddCameraActivity">
+
+        <activity
+            android:name="bazhenov.nikita.petrsu.EditCameraActivity"
+            android:parentActivityName=".CamersActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CamersActivity" />
         </activity>
+
+        <activity
+            android:name="bazhenov.nikita.petrsu.AddCameraActivity"
+            android:parentActivityName=".CamersActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CamersActivity" />
+        </activity>
+
         <activity android:name="bazhenov.nikita.petrsu.CamersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
