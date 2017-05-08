@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">VideoVision</string>
+    <string name="Name">Name</string>
+    <string name="Password">Password</string>
+    <string name="User">User</string>
+    <string name="Id">Id</string>
+    <string name="Add">Add</string>
+    <string name="add_camera">add_camera</string>
+    <string name="Save">Save</string>
+    <string name="Remove">Remove</string>
+</resources>
